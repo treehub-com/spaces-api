@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/treehub-com/spaces#readme",
   "dependencies": {
-    "@treehub/space": "0.1.3",
+    "@treehub/space": "0.2.1",
     "graphql": "0.9.6",
     "graphql-tools": "0.11.0",
     "koa": "2.2.0",
