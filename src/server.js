@@ -1,4 +1,5 @@
 const bodyparser = require('koa-bodyparser');
+const cors = require('kcors');
 const fs = require('fs');
 const {graphql} = require('graphql');
 const Koa = require('koa');
@@ -33,7 +34,7 @@ router.post('/', async (ctx) => {
 router.post('/:space', async (ctx) => {
   const space = await getSpace(ctx.params.space);
 
-  const {query, variables, operationName} = ctx.request.body;
+  let {query, variables, operationName} = ctx.request.body;
 
   if (typeof variables === 'string') {
     variables = JSON.parse(variables);
@@ -49,7 +50,7 @@ router.post('/:space', async (ctx) => {
 router.post('/:space/:tree', async (ctx) => {
   const space = await getSpace(ctx.params.space);
 
-  const {query, variables, operationName} = ctx.request.body;
+  let {query, variables, operationName} = ctx.request.body;
 
   if (typeof variables === 'string') {
     variables = JSON.parse(variables);
@@ -64,6 +65,7 @@ router.post('/:space/:tree', async (ctx) => {
 });
 
 app
+  .use(cors())
   .use(bodyparser({detectJSON: (ctx) => true, jsonLimit: '5mb'}))
   .use(router.routes())
   .use(router.allowedMethods());
